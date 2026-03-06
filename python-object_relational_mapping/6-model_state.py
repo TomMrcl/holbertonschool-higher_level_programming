@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+"""Start link class to table in database."""
+
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from model_state import State
+import sys
+
+if __name__ == "__main__":
+    engine = create_engine(
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(
+            sys.argv[1],
+            sys.argv[2],
+            sys.argv[3]
+        ),
+        pool_pre_ping=True
+    )
+    State.metadata.create_all(engine)
